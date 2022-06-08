@@ -3,7 +3,7 @@
 
 ### [Dokumentacja i opis plikacji (README.md)](README.md)
 ### [Dokumentacja usługi w wersji deweloperskiej (README_dev.md)](README_dev.md)
-### [Dokumentacja usługi w wersji produkcyjnej (README_prod.md)](READNE_prod.md)
+### [Dokumentacja usługi w wersji produkcyjnej (README_prod.md)](README_prod.md)
 ### [Dokumentacja usługi do uruchomienia w klastrze SWARM (README_stack.md)](README_stack.md)
 
 Ponieważ docker stack nie wspiera przechowowywania zmiennych środowiskowych w oddzielnych plikach (.env), zmienne zostały ponownie przeniesione do pliku ***docker-stack.yml***, ich wartości jak w wersji produkcyjnej są brane z shella.

@@ -3,7 +3,7 @@
 
 ### [Dokumentacja i opis plikacji (README.md)](README.md)
 ### [Dokumentacja usługi w wersji deweloperskiej (README_dev.md)](README_dev.md)
-### [Dokumentacja usługi w wersji produkcyjnej (README_prod.md)](READNE_prod.md)
+### [Dokumentacja usługi w wersji produkcyjnej (README_prod.md)](README_prod.md)
 ### [Dokumentacja usługi do uruchomienia w klastrze SWARM (README_stack.md)](README_stack.md)
 
 Obrazy deweloperskie są budowane w oparciu o plik ***docker-compose.dev.yml***, gdzie zdefiniowany jest kontekst oraz plik ***Dockerfile.dev***, na podstawie którego zostaną zbudowana obrazy.
