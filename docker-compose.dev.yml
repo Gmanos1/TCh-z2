@@ -19,6 +19,7 @@ services:
       context: ./client
     volumes:
       - ./client:/app
+      - /app/node_modules
     networks:
       backend:
         aliases:
@@ -33,6 +34,7 @@ services:
       - redis
     volumes:
       - ./api:/app
+      - /app/node_modules
     env_file:
       - ./.config/dev/api.dev.env
     networks:
@@ -48,6 +50,7 @@ services:
       - redis
     volumes:
       - ./worker:/app
+      - /app/node_modules
     env_file:
       - ./.config/dev/worker.dev.env
     networks:
