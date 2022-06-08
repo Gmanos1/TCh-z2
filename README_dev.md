@@ -1,6 +1,11 @@
 # **Konrad Miziński**
 ## **Laboratorium TCh, Zadanie 2.**
 
+### [Dokumentacja i opis plikacji (README.md)](README.md)
+### [Dokumentacja usługi w wersji deweloperskiej (README_dev.md)](README_dev.md)
+### [Dokumentacja usługi w wersji produkcyjnej (README_prod.md)](READNE_prod.md)
+### [Dokumentacja usługi do uruchomienia w klastrze SWARM (README_stack.md)](README_stack.md)
+
 Obrazy deweloperskie są budowane w oparciu o plik ***docker-compose.dev.yml***, gdzie zdefiniowany jest kontekst oraz plik ***Dockerfile.dev***, na podstawie którego zostaną zbudowana obrazy.
 
 Zmienne środowiskowe wykorzystywane przy budowaniu, żeby zapewnić większą elastycznyność zostały przeniesione do oddzielnych plików w katalogu ***".config/dev/"***, gdzie wartości są podstawione do zmiennych na sztywno.
@@ -11,7 +16,9 @@ Katalogi, w których znajdują się kody źródłowe aplikacji są bindowane do 
 
 Polecenie użyte do uruchomienia usługi w wersji deweloperskiej
 
-```docker compose -f docker-compose.dev.yml up```
+```
+docker compose -f docker-compose.dev.yml up
+```
 
 Wszystkie obrazy ponadto, zostały zbudowane i wypchnięte do repozytorium dockerhub (gmanos/z2);
 
@@ -27,3 +34,4 @@ Uruchomienie i działanie usługi
 ![](/screenshots/readme_dev/2.png)
 ![](/screenshots/readme_dev/3.png)
 ![](/screenshots/readme_dev/4.png)
+![](/screenshots/readme_dev/5.png)

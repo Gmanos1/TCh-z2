@@ -1,0 +1,61 @@
+version: '3'
+services:
+  postgres:
+    image: 'postgres:latest'
+    env_file:
+      - ./.config/prod/postgres.env
+    volumes:
+      - 'pgdata:/var/lib/postgresql/data'
+    networks:
+      - backend
+
+  redis:
+    image: 'redis:latest'
+    networks:
+      - backend
+
+  client:
+    image: gmanos/z2:client
+    networks:
+      backend:
+        aliases:
+          - client
+
+  api:
+    image: gmanos/z2:api
+    env_file:
+      - ./.config/prod/api.env
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      backend:
+        aliases:
+          - api
+
+  worker:
+    image: gmanos/z2:worker
+    depends_on:
+      - redis
+    env_file:
+      - ./.config/prod/worker.env
+    networks:
+      - backend
+
+  nginx:
+    depends_on:
+      - api
+      - client
+    restart: always
+    image: gmanos/z2:nginx
+    ports:
+      - '3050:80'
+    networks:
+      - frontend
+      - backend
+
+volumes:
+  pgdata:
+networks:
+  frontend:
+  backend:

@@ -1,0 +1,145 @@
+version: "3"
+services:
+  postgres:
+    image: "postgres:latest"
+    environment:
+      - POSTGRES_PASSWORD=${PGPASSWORD}
+    networks:
+      - backend
+    volumes:
+      - 'pgdata:/var/lib/postgresql/data'
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 50M
+        reservations:
+          cpus: '0.25'
+          memory: 25M
+
+  redis:
+    image: "redis:latest"
+    networks:
+      - backend
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: 50M
+        reservations:
+          cpus: "0.5"
+          memory: 25M
+
+  client:
+    image: gmanos/z2:client
+    networks:
+      backend:
+        aliases:
+          - client
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: "1"
+          memory: 50M
+        reservations:
+          cpus: "0.5"
+          memory: 20M
+
+  api:
+    image: gmanos/z2:api
+    environment:
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - PGUSER=${PGUSER}
+      - PGHOST=${PGHOST}
+      - PGDATABASE=${PGDATABASE}
+      - PGPASSWORD=${PGPASSWORD}
+      - PGPORT=${PGPORT}
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      backend:
+        aliases:
+          - api
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: "1"
+          memory: 50M
+        reservations:
+          cpus: "0.5"
+          memory: 20M
+
+  worker:
+    image: gmanos/z2:worker
+    environment:
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+    depends_on:
+      - redis
+    networks:
+      - backend
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: 30M
+        reservations:
+          cpus: "1"
+          memory: 10M
+
+  nginx:
+    depends_on:
+      - api
+      - client
+    image: gmanos/z2:nginx
+    ports:
+      - "3050:80"
+    networks:
+      - frontend
+      - backend
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: 30M
+        reservations:
+          cpus: "1"
+          memory: 10M
+
+volumes:
+  pgdata:
+networks:
+  frontend:
+  backend:
