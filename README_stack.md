@@ -50,6 +50,7 @@ docker swarm init
 
 ### Użyte polecenie do wdrożenia usługi w klastrze Swarm:
 ```
+. install-secrets.sh
 docker stack deploy -c docker-stack.yml z2
 ```
 
