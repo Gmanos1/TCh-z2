@@ -43,17 +43,17 @@ Docker stack jest rozwinięciem pliku docker-compose, z dodanymi informacjami ta
 - reverse-proxy nie wymaga dużych ilości zasobów stąd rezerwacja 0.25 procesora i 10M, z limitem 1 procesor 30M, powinny w zupełności wystarczyć
 
 
-Inicjalizacja klastra:
+### Inicjalizacja klastra:
 ```
 docker swarm init
 ```
 
-Użyte polecenie do wdrożenia usługi w klastrze Swarm:
+### Użyte polecenie do wdrożenia usługi w klastrze Swarm:
 ```
 docker stack deploy -c docker-stack.yml z2
 ```
 
-Uruchomienie i działanie:
+### Uruchomienie i działanie:
 
 ![](/screenshots/readme_stack/1.png)
 ![](/screenshots/readme_stack/2.png)
