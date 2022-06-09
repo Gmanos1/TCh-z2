@@ -54,6 +54,7 @@ docker stack deploy -c docker-stack.yml z2
 ```
 
 Uruchomienie i działanie:
+
 ![](/screenshots/readme_stack/1.png)
 ![](/screenshots/readme_stack/2.png)
 ![](/screenshots/readme_stack/3.png)
